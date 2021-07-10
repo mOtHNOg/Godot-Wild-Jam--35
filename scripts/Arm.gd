@@ -12,7 +12,8 @@ const retracted_distance_to_rest_pos = 7
 
 var rest_pos = position
 var extending: bool = false
-var poke_buffered: bool = false
+const poke_buffer_time = 28
+var poke_buffer_time_left = 0
 
 var mouse_pos: Vector2
 var angle_to_mouse_pos: float
@@ -37,11 +38,16 @@ func _physics_process(delta):
 		# if you click while not retracted you will buffer a poke for once you are retracted
 		else:
 			print("hello")
-			poke_buffered = true
+			poke_buffer_time_left = poke_buffer_time
 	
-	if position.distance_to(rest_pos) < retracted_distance_to_rest_pos and poke_buffered == true:
-		poke_buffered = false
-		poke()
+	if poke_buffer_time_left > 0:
+		poke_buffer_time_left -= 1
+		
+		if position.distance_to(rest_pos) < retracted_distance_to_rest_pos:
+			print(poke_buffer_time_left)
+			poke_buffer_time_left = 0
+			poke()
+	
 	
 	if extending == false:
 		position = lerp(position, rest_pos, arm_retract_speed * delta)

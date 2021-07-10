@@ -1,4 +1,5 @@
 extends Area2D
+class_name Bacteria
 
 # node references (just for fun)
 onready var explode_timer_delay = $Timers/ExplodeStartDelay

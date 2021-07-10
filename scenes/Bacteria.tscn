@@ -13,7 +13,7 @@ bg_color = Color( 0, 0, 0, 1 )
 
 [node name="Bacteria" type="Area2D"]
 script = ExtResource( 1 )
-move_area_boundaries = [ Vector2( 0, 0 ), Vector2( 320, 180 ) ]
+move_area_boundaries = [ Vector2( 160, 0 ), Vector2( 370, 180 ) ]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color( 1, 0, 0, 1 )
@@ -50,6 +50,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_left = -20.0
 margin_top = -24.0
 margin_right = 20.0

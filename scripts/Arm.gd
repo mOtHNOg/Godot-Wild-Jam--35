@@ -5,14 +5,14 @@ onready var tween = $Tween
 onready var finger = $Finger
 
 const rotation_speed = 10
-const poke_distance = 160
 const arm_extend_time = 0.083
 const arm_retract_speed = 7
+const additional_extend_distance = 10
 const retracted_distance_to_rest_pos = 7
 
 var rest_pos = position
 var extending: bool = false
-const poke_buffer_time = 28
+const poke_buffer_time = 20
 var poke_buffer_time_left = 0
 
 var mouse_pos: Vector2
@@ -37,17 +37,15 @@ func _physics_process(delta):
 		
 		# if you click while not retracted you will buffer a poke for once you are retracted
 		else:
-			print("hello")
 			poke_buffer_time_left = poke_buffer_time
 	
 	if poke_buffer_time_left > 0:
 		poke_buffer_time_left -= 1
-		
+
 		if position.distance_to(rest_pos) < retracted_distance_to_rest_pos:
 			print(poke_buffer_time_left)
 			poke_buffer_time_left = 0
 			poke()
-	
 	
 	if extending == false:
 		position = lerp(position, rest_pos, arm_retract_speed * delta)
@@ -55,11 +53,21 @@ func _physics_process(delta):
 func poke() -> void:
 	extending = true
 	
-	var extended_position: Vector2 = rest_pos + direction_to_mouse_pos * finger.global_position.distance_to(mouse_pos)
+	var extended_position: Vector2 = rest_pos + direction_to_mouse_pos * ( finger.global_position.distance_to(mouse_pos) + additional_extend_distance )
+	tween.remove_all()
 	tween.interpolate_property(self, "position",
 		position, extended_position, arm_extend_time,
 		Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	tween.start()
 
-func _on_Tween_tween_all_completed():
+func stop_poke() -> void:
+	tween.stop_all()
 	extending = false
+
+func _on_Tween_tween_completed(object, key):
+	extending = false
+
+
+func _on_Finger_area_entered(area):
+	if area is Bacteria:
+		stop_poke()

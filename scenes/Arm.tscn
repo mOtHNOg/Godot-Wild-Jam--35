@@ -24,8 +24,9 @@ shape = SubResource( 1 )
 [node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2( 160, 6 )
 color = Color( 1, 0.984314, 0, 1 )
-polygon = PoolVector2Array( -208, -16, -208, 16, 96, 16, 96, -16 )
+polygon = PoolVector2Array( -354, -16, -354, 16, 96, 16, 96, -16 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]
+[connection signal="area_entered" from="Finger" to="." method="_on_Finger_area_entered"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

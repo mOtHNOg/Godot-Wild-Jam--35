@@ -6,8 +6,8 @@ onready var parent = get_parent()
 
 const Bacteria = preload("res://scenes/Bacteria.tscn")
 
-const min_spawn_time = 1
-const max_spawn_time = 3
+export var min_spawn_time: int
+export var max_spawn_time: int
 
 export var auto_start: bool = false
 

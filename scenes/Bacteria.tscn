@@ -49,6 +49,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label" type="Label" parent="."]
+margin_left = -20.0
+margin_top = -24.0
+margin_right = 20.0
+margin_bottom = -10.0
+text = "121"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="timeout" from="Timers/ExplodeStartDelay" to="." method="_on_ExplodeStartDelay_timeout"]
 [connection signal="timeout" from="Timers/ExplodeTimer" to="." method="_on_ExplodeTimer_timeout"]
 [connection signal="timeout" from="Timers/MoveDelayTimer" to="." method="_on_MoveDelayTimer_timeout"]

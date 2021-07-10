@@ -24,6 +24,7 @@ signal exploded
 func _ready() -> void:
 	connect("finished_moving", self, "set_movement_delay")
 	set_movement_to_random_pos()
+	$Label.text = str(int(random_speed))
 
 func _physics_process(delta) -> void:
 	# movement
@@ -33,7 +34,7 @@ func _physics_process(delta) -> void:
 		
 		if emitted_finished_moving_signal == false:
 			emitted_finished_moving_signal = true
-			emit_signal("finished_moving", 1, 3)
+			emit_signal("finished_moving", 2, 4)
 	else:
 		position += random_speed * movement_direction * delta
 	

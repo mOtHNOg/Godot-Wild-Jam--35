@@ -7,5 +7,5 @@ export var decel_speed: float
 
 var velocity: Vector2 = Vector2.ZERO
 
-func _physics_process(delta):
+func _physics_process(_delta) -> void:
 	move_and_slide(velocity)

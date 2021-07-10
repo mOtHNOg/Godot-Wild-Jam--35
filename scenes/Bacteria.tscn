@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/Bacteria.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 8 )
+extents = Vector2( 4, 4 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 1, 0, 0, 1 )
@@ -12,12 +12,12 @@ bg_color = Color( 1, 0, 0, 1 )
 bg_color = Color( 0, 0, 0, 1 )
 
 [node name="Bacteria" type="Area2D"]
-position = Vector2( 144, 88 )
 script = ExtResource( 1 )
+move_area_boundaries = [ Vector2( 0, 0 ), Vector2( 320, 180 ) ]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color( 1, 0, 0, 1 )
-polygon = PoolVector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
+polygon = PoolVector2Array( -4, -4, 4, -4, 4, 4, -4, 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -25,19 +25,22 @@ shape = SubResource( 1 )
 [node name="Timers" type="Node" parent="."]
 
 [node name="ExplodeStartDelay" type="Timer" parent="Timers"]
-wait_time = 3.0
+wait_time = 1.5
 one_shot = true
 autostart = true
 
 [node name="ExplodeTimer" type="Timer" parent="Timers"]
-wait_time = 5.0
+wait_time = 10.0
+one_shot = true
+
+[node name="MoveDelayTimer" type="Timer" parent="Timers"]
 one_shot = true
 
 [node name="ExplodeProgressBar" type="ProgressBar" parent="."]
-margin_left = -16.0
-margin_top = -20.0
-margin_right = 16.0
-margin_bottom = -14.0
+margin_left = -10.0
+margin_top = -10.0
+margin_right = 10.0
+margin_bottom = -8.0
 custom_styles/fg = SubResource( 2 )
 custom_styles/bg = SubResource( 3 )
 max_value = 1.0
@@ -48,3 +51,4 @@ __meta__ = {
 
 [connection signal="timeout" from="Timers/ExplodeStartDelay" to="." method="_on_ExplodeStartDelay_timeout"]
 [connection signal="timeout" from="Timers/ExplodeTimer" to="." method="_on_ExplodeTimer_timeout"]
+[connection signal="timeout" from="Timers/MoveDelayTimer" to="." method="_on_MoveDelayTimer_timeout"]

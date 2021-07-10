@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "MovingObject",
 "language": "GDScript",
-"path": "res://scripts/MovingObject.gd"
+"path": "res://scripts/MovingArea2D.gd"
 } ]
 _global_script_class_icons={
 "MovingObject": ""
@@ -21,8 +21,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Godot Wild Jam #35"
-run/main_scene="res://scenes/Player.tscn"
+run/main_scene="res://scenes/Mouth.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://scripts/Global.gd"
 
 [display]
 

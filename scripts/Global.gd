@@ -1,5 +1,7 @@
 extends Node
 
+var picked_up_wall_object: WallObject = null
+
 func _ready():
 	randomize()
 

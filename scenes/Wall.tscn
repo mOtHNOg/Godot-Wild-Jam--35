@@ -6,21 +6,24 @@
 [ext_resource path="res://assets/art/backgrounds/wall stuff/painting.png" type="Texture" id=5]
 [ext_resource path="res://scenes/WallObject.tscn" type="PackedScene" id=6]
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 44, 34 )
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 16 )
-
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 14, 24 )
 
 [sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 16 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 44, 34 )
+
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 59.5, 3 )
 
 [node name="Wall" type="Node"]
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="BackgroundCanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="BackgroundCanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -31,35 +34,9 @@ __meta__ = {
 
 [node name="Objects" type="Node" parent="."]
 
-[node name="Painting" parent="Objects" instance=ExtResource( 6 )]
-position = Vector2( 275, 51.5 )
-collision_layer = 2
-collision_mask = 1
-auto_apply_gravity = false
-
-[node name="Sprite" type="Sprite" parent="Objects/Painting"]
-position = Vector2( 0, 32 )
-texture = ExtResource( 5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Painting"]
-position = Vector2( 0, 31.5 )
-shape = SubResource( 4 )
-
-[node name="Daisy" parent="Objects" instance=ExtResource( 6 )]
-position = Vector2( 83, 96.5 )
-collision_layer = 2
-collision_mask = 1
-
-[node name="Sprite" type="Sprite" parent="Objects/Daisy"]
-position = Vector2( 0, -16 )
-texture = ExtResource( 3 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Daisy"]
-position = Vector2( 0, -15.5 )
-shape = SubResource( 1 )
-
 [node name="Gnome" parent="Objects" instance=ExtResource( 6 )]
 position = Vector2( 129, 97 )
+z_index = -1
 collision_layer = 2
 collision_mask = 1
 
@@ -71,6 +48,35 @@ texture = ExtResource( 1 )
 position = Vector2( 0, -24 )
 shape = SubResource( 3 )
 
+[node name="Daisy" parent="Objects" instance=ExtResource( 6 )]
+position = Vector2( 83, 96.5 )
+z_index = -2
+collision_layer = 2
+collision_mask = 1
+
+[node name="Sprite" type="Sprite" parent="Objects/Daisy"]
+position = Vector2( 0, -16 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Daisy"]
+position = Vector2( 0, -15.5 )
+shape = SubResource( 2 )
+
+[node name="Painting" parent="Objects" instance=ExtResource( 6 )]
+position = Vector2( 275, 51.5 )
+z_index = -3
+collision_layer = 2
+collision_mask = 1
+auto_apply_gravity = false
+
+[node name="Sprite" type="Sprite" parent="Objects/Painting"]
+position = Vector2( 0, 32 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Painting"]
+position = Vector2( 0, 31.5 )
+shape = SubResource( 1 )
+
 [node name="Shelf" type="StaticBody2D" parent="."]
 position = Vector2( 107.5, 100 )
 collision_mask = 2
@@ -80,6 +86,6 @@ position = Vector2( 0, 7.5 )
 texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shelf"]
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 one_way_collision = true
 one_way_collision_margin = 6.0

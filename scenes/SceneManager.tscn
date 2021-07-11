@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/Mouth.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/SceneManager.gd" type="Script" id=3]
+
+[node name="SceneManager" type="Node"]
+script = ExtResource( 3 )
+
+[node name="Transitions" type="CanvasLayer" parent="."]
+
+[node name="Wall" parent="." instance=ExtResource( 2 )]
+
+[node name="Mouth" parent="." instance=ExtResource( 1 )]

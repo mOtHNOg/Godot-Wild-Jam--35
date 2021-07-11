@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/arm.png-b0af9fc640094d3f4a900817f56f8296.stex"
+path="res://.import/bacteria0000.png-02f320b7684242de1b969a7f6af2f895.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/objects/arm.png"
-dest_files=[ "res://.import/arm.png-b0af9fc640094d3f4a900817f56f8296.stex" ]
+source_file="res://assets/art/probably living objects/bacteria/bacteria0000.png"
+dest_files=[ "res://.import/bacteria0000.png-02f320b7684242de1b969a7f6af2f895.stex" ]
 
 [params]
 

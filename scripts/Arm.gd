@@ -5,7 +5,7 @@ onready var tween = $Tween
 onready var finger = $Finger
 
 const rotation_speed = 10
-const arm_extend_time = 0.083
+const arm_extend_time = 0.2
 const arm_retract_speed = 7
 const additional_extend_distance = 10
 const retracted_distance_to_rest_pos = 7
@@ -19,6 +19,8 @@ var mouse_pos: Vector2
 var angle_to_mouse_pos: float
 var direction_to_mouse_pos: Vector2
 
+signal collided_with_bacteria
+
 func _physics_process(delta):
 	
 	mouse_pos = get_global_mouse_position()
@@ -29,7 +31,7 @@ func _physics_process(delta):
 	global_rotation = lerp_angle(global_rotation, angle_to_mouse_pos, rotation_speed * delta)
 	
 	# only lets you poke if your mouse is to the right of the finger (because it makes sense)
-	if Input.is_action_just_pressed("finger_poke") and mouse_pos.x > finger.global_position.x:
+	if Input.is_action_just_pressed("left_click") and mouse_pos.x > finger.global_position.x:
 		
 		# only lets you poke if you are retracted enough
 		if position.distance_to(rest_pos) < retracted_distance_to_rest_pos:
@@ -67,7 +69,10 @@ func stop_poke() -> void:
 func _on_Tween_tween_completed(object, key):
 	extending = false
 
-
 func _on_Finger_area_entered(area):
 	if area is Bacteria:
-		stop_poke()
+		if extending == true:
+			stop_poke()
+			
+			connect("collided_with_bacteria", area, "_on_finger_collision")
+			emit_signal("collided_with_bacteria")

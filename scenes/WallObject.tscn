@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/WallObject.gd" type="Script" id=1]
+
+[node name="WallObject" type="KinematicBody2D"]
+input_pickable = true
+collision_mask = 2
+script = ExtResource( 1 )
+
+[connection signal="mouse_entered" from="." to="." method="_on_WallObject_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_WallObject_mouse_exited"]

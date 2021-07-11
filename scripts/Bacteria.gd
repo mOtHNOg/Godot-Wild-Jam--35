@@ -8,11 +8,11 @@ onready var move_delay_timer = $Timers/MoveDelayTimer
 onready var explode_progress_bar = $ExplodeProgressBar
 
 # bacteria will move to random positions within these vectors
-export var move_area_boundaries = [Vector2(), Vector2()]
+var move_area_boundaries = [Vector2(), Vector2()]
 
 # movement variables
 const min_speed = 60
-const max_speed = 120
+const max_speed = 200
 var random_speed = rand_range(min_speed, max_speed)
 
 var move_pos: Vector2
@@ -20,10 +20,17 @@ var movement_direction: Vector2
 signal finished_moving
 var emitted_finished_moving_signal: bool = false
 
+# timersssss
+const min_explode_time = 7
+const max_explode_time = 12
+
 signal exploded
 
 func _ready() -> void:
 	connect("finished_moving", self, "set_movement_delay")
+	
+	explode_timer.wait_time = int(rand_range(min_explode_time, max_explode_time))
+	
 	set_movement_to_random_pos()
 	$Label.text = str(int(random_speed))
 
@@ -63,8 +70,10 @@ func _on_ExplodeStartDelay_timeout() -> void:
 
 func _on_ExplodeTimer_timeout() -> void:
 	emit_signal("exploded")
-	yield(get_tree().create_timer(1.0), "timeout")
 	queue_free()
 
-func _on_MoveDelayTimer_timeout():
+func _on_MoveDelayTimer_timeout() -> void:
 	set_movement_to_random_pos()
+
+func _on_finger_collision() -> void:
+	queue_free()

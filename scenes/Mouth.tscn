@@ -5,10 +5,13 @@
 
 [node name="Mouth" type="Node"]
 
+[node name="BacteriaParent" type="Node" parent="."]
+
 [node name="BacteriaSpawner" parent="." instance=ExtResource( 1 )]
 position = Vector2( 416, 90 )
 min_spawn_time = 1
-max_spawn_time = 3
+max_spawn_time = 5
+bacteria_move_area_boundaries = [ Vector2( 152, 16 ), Vector2( 370, 164 ) ]
 auto_start = true
 
 [node name="Arm" parent="." instance=ExtResource( 2 )]

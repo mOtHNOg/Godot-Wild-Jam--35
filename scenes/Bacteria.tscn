@@ -13,7 +13,6 @@ bg_color = Color( 0, 0, 0, 1 )
 
 [node name="Bacteria" type="Area2D"]
 script = ExtResource( 1 )
-move_area_boundaries = [ Vector2( 160, 0 ), Vector2( 370, 180 ) ]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color( 1, 0, 0, 1 )
@@ -25,7 +24,7 @@ shape = SubResource( 1 )
 [node name="Timers" type="Node" parent="."]
 
 [node name="ExplodeStartDelay" type="Timer" parent="Timers"]
-wait_time = 1.5
+wait_time = 0.5
 one_shot = true
 autostart = true
 

@@ -2,7 +2,9 @@
 
 [ext_resource path="res://scripts/WallObject.gd" type="Script" id=1]
 
-[node name="WallObject" type="KinematicBody2D"]
+[node name="WallObject" type="KinematicBody2D" groups=[
+"has_disabled_property",
+]]
 input_pickable = true
 collision_mask = 2
 script = ExtResource( 1 )

@@ -8,11 +8,12 @@ var mouth: Node2D
 var wall: Node2D
 
 # control
-onready var current_view: Node = get_node("/root/SceneManager/Active/Mouth")
+onready var current_view: Node = get_node("/root/SceneManager/Mouth")
 var picked_up_wall_object: WallObject = null
 
 # options
 var flash_effects: bool = true
+
 
 # built in functions
 func _ready():

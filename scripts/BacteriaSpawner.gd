@@ -6,10 +6,20 @@ onready var bacteria_parent = get_parent().get_node("BacteriaParent")
 
 const Bacteria = preload("res://scenes/Bacteria.tscn")
 
+var spawn_data: Dictionary = {
+	"min_spawn_time" : 2,
+	"max_spawn_time" : 3,
+	"shielded_chance" : 0,
+	"armored_chance" : 0
+}
+
+var phase_2_data: Dictionary
+
 export var min_spawn_time: int
 export var max_spawn_time: int
-export var bacteria_move_area_boundaries = [Vector2(), Vector2()]
+
 export var auto_start: bool = false
+export var bacteria_move_area_boundaries = [Vector2(), Vector2()]
 
 func _ready():
 	if auto_start == true:
@@ -18,7 +28,7 @@ func _ready():
 func start() -> void:
 	spawn_bacteria()
 	
-	# int() makes it so bacteria only spawn precisely on a second
+	# bacteria only spawn precisely on a second
 	spawn_timer.wait_time = int(rand_range(min_spawn_time, max_spawn_time))
 	spawn_timer.start()
 

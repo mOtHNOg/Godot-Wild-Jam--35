@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bacteria die.wav-90e99fc26adec95b47d3509a1d23431c.sample"
+
+[deps]
+
+source_file="res://assets/sound/sfx/bacteria die.wav"
+dest_files=[ "res://.import/bacteria die.wav-90e99fc26adec95b47d3509a1d23431c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

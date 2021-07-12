@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shield destroy.wav-9d52239d6ace53b523bac69d2486885a.sample"
+
+[deps]
+
+source_file="res://assets/sound/sfx/shield destroy.wav"
+dest_files=[ "res://.import/shield destroy.wav-9d52239d6ace53b523bac69d2486885a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

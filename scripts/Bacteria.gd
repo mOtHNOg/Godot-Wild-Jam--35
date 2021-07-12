@@ -12,8 +12,13 @@ onready var sprite = $BacteriaSprite
 onready var collision = $CollisionShape2D
 onready var shield = $Shield
 onready var shield_sprite = $Shield/ShieldSprite
-onready var sfx_die = $SFX/Die
-onready var sfx_shield_destroy = $SFX/ShieldDestroy
+
+onready var sfx = {
+	"die" : $SFX/Die,
+	"shield_destroy" : $SFX/ShieldDestroy,
+	"explosion_anticipation" : $SFX/ExplosionAnticipation,
+}
+
 
 # bacteria will move to random positions within these vectors
 var move_area_boundaries = [Vector2(), Vector2()]
@@ -23,6 +28,7 @@ var shielded: bool = false
 var explosive: bool = false
 
 const shielded_progress_bar_offset = Vector2(0, -5)
+const explosive_retreat_position = Vector2(416, 90)
 
 # movement variables
 const min_speed = 90
@@ -34,9 +40,14 @@ var movement_direction: Vector2
 signal finished_moving
 var emitted_finished_moving_signal: bool = false
 
-# timersssss
-const min_explode_time = 7
-const max_explode_time = 12
+# explosion stuff
+const explosion_timer_data = {
+	"normal_min_time" : 7,
+	"normal_max_time" : 12,
+	"explosive_min_time" : 5,
+	"explosive_max_time" : 10
+}
+var explosion_anticipation_sound_played: bool = false
 
 # visual stuff
 onready var unique_sprite_material = sprite.material.duplicate()
@@ -50,7 +61,10 @@ func _ready() -> void:
 	connect("finished_moving", self, "set_movement_delay")
 	connect("exploded", Global.mouth, "_on_bacteria_exploded")
 	
-	explode_timer.wait_time = int(rand_range(min_explode_time, max_explode_time))
+	if explosive == false:
+		explode_timer.wait_time = int(rand_range(explosion_timer_data.normal_min_time, explosion_timer_data.normal_max_time))
+	else:
+		explode_timer.wait_time = int(rand_range(explosion_timer_data.explosive_min_time, explosion_timer_data.explosive_max_time))
 	
 	# set random sprite startign rotation (so there's more variety)
 	sprite.rotation_degrees = rand_range(0, 360)
@@ -75,12 +89,17 @@ func _ready() -> void:
 		sprite.material = unique_sprite_material
 		sprite.material.set_shader_param("Shift_Hue", random_hue)
 	
-	set_movement_to_random_pos()
+	set_movement()
 
 func _physics_process(delta) -> void:
 	# movement
 	movement_direction = position.direction_to(move_pos)
 	if position.distance_to(move_pos) < 1:
+		
+		# when explosive bacteria go off screen (when they retreat) they get deleted
+		if move_pos == explosive_retreat_position:
+			queue_free()
+		
 		move_pos = position
 		
 		if emitted_finished_moving_signal == false:
@@ -93,27 +112,54 @@ func _physics_process(delta) -> void:
 	if explode_timer.time_left > 0:
 		var explode_time_left_percent = explode_timer.time_left / explode_timer.wait_time
 		explode_progress_bar.value = 1 - explode_time_left_percent
+		
+		# play explosion anticipation sound when timer reaches certain point
+		if explosive == false and explode_timer.time_left < 0.8 and explosion_anticipation_sound_played == false:
+			print(explode_timer.time_left)
+			explosion_anticipation_sound_played = true
+			sfx.explosion_anticipation.play()
 	
 	# spinnn!!!!
 	sprite.rotation_degrees += sprite_rotation_speed * random_rotation_direction * delta
 
-func set_movement_to_random_pos() -> void:
+func set_movement(specified_position := Vector2(999, 999)) -> void:
 	emitted_finished_moving_signal = false
 	
-	var random_move_pos = Vector2(
-		rand_range(move_area_boundaries[0].x, move_area_boundaries[1].x),
-		rand_range(move_area_boundaries[0].y, move_area_boundaries[1].y)
-	)
-	move_pos = random_move_pos
+	var new_pos: Vector2
+	
+	# if position is left blank it picks a random position
+	if specified_position == Vector2(999, 999):
+		new_pos = Vector2(
+			rand_range(move_area_boundaries[0].x, move_area_boundaries[1].x),
+			rand_range(move_area_boundaries[0].y, move_area_boundaries[1].y)
+		)
+	else:
+		new_pos = specified_position
+	move_pos = new_pos
 
 func set_movement_delay(min_delay_time: float, max_delay_time: float) -> void:
 	var delay_time = rand_range(min_delay_time, max_delay_time)
 	move_delay_timer.wait_time = delay_time
 	move_delay_timer.start()
 
+func disable(hide: bool = false) -> void:
+	explode_timer.stop()
+	collision.set_deferred("disabled", true)
+	
+	random_speed = 0
+	sprite_rotation_speed = 0
+	sprite.rotation_degrees = 0
+	
+	if hide == true:
+		hide()
+
 func explode() -> void:
-	Global.screen_flash(Global.mouth, 0.167, Color(1, 1, 1, 0.75))
 	emit_signal("exploded")
+	
+	# uses global function to play sound elsewhere so the bacteria can get killed instantly
+	Global.screen_flash(Global.mouth, 0.8, Color(1, 1, 1, 0.9))
+	Global.play_sound(get_parent(), "res://assets/sound/sfx/bacteria explosion.wav", -4)
+	
 	queue_free()
 
 func die() -> void:
@@ -122,20 +168,13 @@ func die() -> void:
 	progress_bar_background.hide()
 	explode_progress_bar.hide()
 	
-	# stop stuff that will get in the way
-	explode_timer.stop()
-	collision.set_deferred("disabled", true)
-	
 	# play sound at random pitch
-	sfx_die.pitch_scale = rand_range(0.833, 1.167)
-	sfx_die.stop()
-	sfx_die.play()
+	sfx.die.pitch_scale = rand_range(0.833, 1.167)
+	sfx.die.play()
 	
-	# set animation and stop it from moving and spinning
+	disable()
+	
 	sprite.animation = "death"
-	random_speed = 0
-	sprite_rotation_speed = 0
-	sprite.rotation_degrees = 0
 	
 	yield(sprite, "animation_finished")
 	queue_free()
@@ -144,10 +183,16 @@ func _on_ExplodeStartDelay_timeout() -> void:
 	explode_timer.start()
 
 func _on_ExplodeTimer_timeout() -> void:
-	explode()
+	if explosive == false:
+		explode()
+	
+	# explosive bacteria retreat when timer runs out
+	else:
+		move_delay_timer.stop()
+		set_movement(explosive_retreat_position)
 
 func _on_MoveDelayTimer_timeout() -> void:
-	set_movement_to_random_pos()
+	set_movement()
 
 func _on_finger_collision(poked_with_toothbrush: bool) -> void:
 	if poked_with_toothbrush == true:
@@ -163,12 +208,12 @@ func _on_Shield_area_entered(area):
 	if arm.extending == true:
 		# re enable bacteria collision
 		collision.set_deferred("disabled", false)
-
-		#	sfx_shield_destroy.pitch_scale = rand_range(0.833, 1.167)
-		sfx_shield_destroy.play()
-
+		
+		sfx.shield_destroy.pitch_scale = rand_range(0.833, 1.167)
+		sfx.shield_destroy.play()
+		
 		shield_sprite.animation = "die"
 		yield(shield_sprite, "animation_finished")
 		shield.queue_free()
-
+		
 		explode_progress_bar_parent.position -= shielded_progress_bar_offset

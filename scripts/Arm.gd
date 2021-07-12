@@ -49,7 +49,6 @@ func _physics_process(delta):
 			poke_buffer_time_left -= 1
 
 			if position.distance_to(rest_pos) < retracted_distance_to_rest_pos:
-				print(poke_buffer_time_left)
 				poke_buffer_time_left = 0
 				poke()
 		
@@ -73,7 +72,7 @@ func stop_poke() -> void:
 	tween.stop_all()
 	extending = false
 
-func _on_Tween_tween_completed(object, key):
+func _on_Tween_tween_completed(_object, _key):
 	extending = false
 
 func _on_Finger_area_entered(area):

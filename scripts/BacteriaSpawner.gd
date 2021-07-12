@@ -8,9 +8,9 @@ const Bacteria = preload("res://scenes/Bacteria.tscn")
 
 var spawn_data: Dictionary = {
 	"min_spawn_time" : 2,
-	"max_spawn_time" : 3,
-	"shielded_chance" : 0,
-	"armored_chance" : 0
+	"max_spawn_time" : 4,
+	"shielded_chance" : 0.25,
+	"explosive_chance" : 0.25
 }
 
 var phase_2_data: Dictionary
@@ -29,7 +29,7 @@ func start() -> void:
 	spawn_bacteria()
 	
 	# bacteria only spawn precisely on a second
-	spawn_timer.wait_time = int(rand_range(min_spawn_time, max_spawn_time))
+	spawn_timer.wait_time = int(rand_range(spawn_data.min_spawn_time, spawn_data.max_spawn_time))
 	spawn_timer.start()
 
 func stop() -> void:
@@ -38,11 +38,20 @@ func stop() -> void:
 func spawn_bacteria() -> void:
 	var spawn_amount = int(rand_range(0, 4))
 	for i in spawn_amount:
-		print(i)
 		var bacteria_instance: Bacteria = Bacteria.instance()
-		bacteria_parent.call_deferred("add_child", bacteria_instance)
+		
+		# set important properties before adding
 		bacteria_instance.position = global_position
 		bacteria_instance.move_area_boundaries = bacteria_move_area_boundaries
+		
+		# randomly set to explosive or shielded based on spawn data
+		if randf() < spawn_data.shielded_chance:
+			bacteria_instance.shielded = true
+		if randf() < spawn_data.explosive_chance:
+			bacteria_instance.shielded = false
+			bacteria_instance.explosive = true
+		
+		bacteria_parent.call_deferred("add_child", bacteria_instance)
 		if i == spawn_amount:
 			break
 		else:

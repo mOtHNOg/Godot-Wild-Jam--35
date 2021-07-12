@@ -5,7 +5,7 @@ var teeth_health: int = 5
 func _ready() -> void:
 	Global.mouth = self
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if teeth_health == 0:
 		print("you lose")
 

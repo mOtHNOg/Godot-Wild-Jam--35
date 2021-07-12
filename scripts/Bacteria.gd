@@ -19,6 +19,8 @@ onready var sfx = {
 	"explosion_anticipation" : $SFX/ExplosionAnticipation,
 }
 
+# in this case disabled only disables screen flash
+var disabled: bool = false
 
 # bacteria will move to random positions within these vectors
 var move_area_boundaries = [Vector2(), Vector2()]
@@ -157,8 +159,11 @@ func explode() -> void:
 	emit_signal("exploded")
 	
 	# uses global function to play sound elsewhere so the bacteria can get killed instantly
-	Global.screen_flash(Global.mouth, 0.8, Color(1, 1, 1, 0.9))
-	Global.play_sound(get_parent(), "res://assets/sound/sfx/bacteria explosion.wav", -4)
+	# get_parent x2 is mouth scene: Mouth > BacteriaParent > Bacteria
+	Global.play_sound(get_parent().get_parent(), "res://assets/sound/sfx/bacteria explosion.wav", -4)
+	
+	if disabled == false:
+		Global.screen_flash(Global.mouth, 0.8, Color(1, 1, 1, 0.9))
 	
 	queue_free()
 

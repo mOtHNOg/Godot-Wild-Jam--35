@@ -19,7 +19,9 @@ extents = Vector2( 44, 34 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 59.5, 3 )
 
-[node name="Wall" type="Node2D"]
+[node name="Wall" type="Node2D" groups=[
+"needs_disabling_Wall",
+]]
 script = ExtResource( 2 )
 
 [node name="BackgroundCanvasLayer" type="CanvasLayer" parent="."]

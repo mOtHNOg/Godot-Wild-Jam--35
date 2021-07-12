@@ -1,6 +1,8 @@
 extends KinematicBody2D
 class_name WallObject
 
+var disabled: bool = false
+
 var mouse_entered: bool = false
 var mouse_clicked_inside_collision: bool = false
 
@@ -18,6 +20,11 @@ func _ready():
 		apply_gravity = true
 
 func _physics_process(delta):
+	if disabled == true:
+		input_pickable = false
+	else:
+		input_pickable = true
+	
 	if Input.is_action_just_pressed("left_click") and mouse_entered == true and Global.picked_up_wall_object == null:
 		mouse_clicked_inside_collision = true
 		Global.picked_up_wall_object = self

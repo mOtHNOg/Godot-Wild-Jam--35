@@ -10,5 +10,6 @@ script = ExtResource( 3 )
 [node name="Transitions" type="CanvasLayer" parent="."]
 
 [node name="Wall" parent="." instance=ExtResource( 2 )]
+visible = false
 
 [node name="Mouth" parent="." instance=ExtResource( 1 )]

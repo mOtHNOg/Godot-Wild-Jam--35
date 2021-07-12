@@ -8,7 +8,7 @@
 extents = Vector2( 22, 6 )
 
 [node name="Arm" type="Node2D" groups=[
-"has_disabled_property",
+"needs_disabling_Mouth",
 ]]
 position = Vector2( -176, 84 )
 script = ExtResource( 1 )

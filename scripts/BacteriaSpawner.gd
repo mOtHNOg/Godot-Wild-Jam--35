@@ -4,6 +4,7 @@ extends Node2D
 onready var spawn_timer = $SpawnTimer
 onready var bacteria_parent = get_parent().get_node("BacteriaParent")
 
+
 const Bacteria = preload("res://scenes/Bacteria.tscn")
 
 var spawn_data: Dictionary = {

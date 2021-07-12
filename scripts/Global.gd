@@ -1,14 +1,18 @@
 extends Node
 
 # preload
-const screen_flash = preload("res://scenes/ScreenFlash.tscn")
+const screen_flash_object = preload("res://scenes/ScreenFlash.tscn")
 
 # nodes
 var mouth: Node2D
 var wall: Node2D
 
 # control
-onready var current_view: Node = get_node_or_null("/root/SceneManager/Mouth")
+onready var views: Dictionary = {
+	"active" : get_node_or_null("/root/SceneManager/Mouth"),
+	"inactive" : get_node_or_null("/root/SceneManager/Wall")
+}
+
 var picked_up_wall_object: WallObject = null
 
 # options
@@ -41,7 +45,19 @@ func play_sound(where: Node, sound_path: String, volume: float = 0, pitch: float
 	audio_stream_player.queue_free()
 
 func screen_flash(where: Node, time: float = 0.2, color: Color = Color(1, 1, 1, 1)) -> void:
-	var screen_flash_instance = screen_flash.instance()
+	var screen_flash_instance = screen_flash_object.instance()
 	screen_flash_instance.flash_color = color
 	screen_flash_instance.flash_time = time
 	where.add_child(screen_flash_instance)
+
+func swap_dict_values(dict: Dictionary) -> Dictionary:
+	var dict_keys: Array = dict.keys()
+	
+	var value_1 = dict[dict_keys[0]]
+	var value_2 = dict[dict_keys[1]]
+	
+	var new_dict = {
+		dict_keys[0] : value_2,
+		dict_keys[1] : value_1
+	}
+	return new_dict

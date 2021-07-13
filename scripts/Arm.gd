@@ -58,7 +58,6 @@ func _physics_process(delta):
 		
 		if extending == false:
 			position = lerp(position, rest_pos, arm_retract_speed * delta)
-	print(global_rotation)
 
 func poke() -> void:
 	extending = true

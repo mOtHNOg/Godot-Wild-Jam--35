@@ -22,6 +22,8 @@ var signal_over_method: String = ""
 
 func _ready():
 	
+	reversed = ! Global.last_transition_reversed
+	
 	if reversed == true:
 		start_pos *= -1
 		end_pos *= -1

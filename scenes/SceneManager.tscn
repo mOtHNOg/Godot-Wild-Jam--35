@@ -1,31 +1,42 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/Mouth.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/SceneManager.gd" type="Script" id=3]
+[ext_resource path="res://assets/art/ui/to wall button/normal.png" type="Texture" id=4]
+[ext_resource path="res://assets/art/ui/to wall button/hover.png" type="Texture" id=5]
+[ext_resource path="res://assets/art/ui/to wall button/pressed.png" type="Texture" id=6]
 
 [node name="SceneManager" type="Node"]
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="Transitions" type="Node" parent="CanvasLayer"]
-
 [node name="UI" type="Node" parent="CanvasLayer"]
 
-[node name="ViewSwitchButton" type="Button" parent="CanvasLayer/UI"]
+[node name="ViewSwitchButton" type="TextureButton" parent="CanvasLayer/UI"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = -26.0
+margin_left = 4.0
+margin_top = -24.0
 margin_right = 42.0
-margin_bottom = -6.0
+margin_bottom = -4.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 6 )
+texture_hover = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Transitions" type="Node" parent="CanvasLayer"]
 
 [node name="Wall" parent="." instance=ExtResource( 2 )]
 visible = false
 
 [node name="Mouth" parent="." instance=ExtResource( 1 )]
+
+[connection signal="pressed" from="CanvasLayer/UI/ViewSwitchButton" to="." method="_on_ViewSwitchButton_pressed"]

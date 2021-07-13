@@ -8,8 +8,22 @@
 script = ExtResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="Transitions" type="Node" parent="CanvasLayer"]
+
+[node name="UI" type="Node" parent="CanvasLayer"]
+
+[node name="ViewSwitchButton" type="Button" parent="CanvasLayer/UI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = -26.0
+margin_right = 42.0
+margin_bottom = -6.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Wall" parent="." instance=ExtResource( 2 )]
 visible = false

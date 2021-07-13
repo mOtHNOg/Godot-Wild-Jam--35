@@ -2,7 +2,7 @@ extends Node
 
 # preload
 const screen_flash_object = preload("res://scenes/ScreenFlash.tscn")
-const fade_transition_object = preload("res://scenes/FadeTransition.tscn")
+const transition_object = preload("res://scenes/Transition.tscn")
 
 # nodes
 var mouth: Node2D
@@ -15,6 +15,7 @@ onready var views: Dictionary = {
 }
 
 var picked_up_wall_object: WallObject = null
+var last_transition_reversed: bool = false
 
 # options
 var flash_effects: bool = true
@@ -63,12 +64,13 @@ func swap_dict_values(dict: Dictionary) -> Dictionary:
 	}
 	return new_dict
 
-func view_transition(where: Node, SceneManager: Node, transition_method: String, speed: float = 0.5, color: Color = Color(0, 0, 0, 0)) -> void:
-	var fade_transition_instance = fade_transition_object.instance()
+func view_transition(where: Node, SceneManager: Node, transition_covered_method: String, transition_over_method: String = "", speed: float = 0.5, color: Color = Color(0, 0, 0, 1)) -> void:
+	var transition_instance = transition_object.instance()
 	
-	fade_transition_instance.transition_speed = speed
-	fade_transition_instance.transparent_color = color
-	fade_transition_instance.signal_recipient = SceneManager
-	fade_transition_instance.signal_method = transition_method
+	transition_instance.transition_speed = speed
+	transition_instance.transition_color = color
+	transition_instance.signal_recipient = SceneManager
+	transition_instance.signal_covered_method = transition_covered_method
+	transition_instance.signal_over_method = transition_over_method
 	
-	where.add_child(fade_transition_instance)
+	where.add_child(transition_instance)

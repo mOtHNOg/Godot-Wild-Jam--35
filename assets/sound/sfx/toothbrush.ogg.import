@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/toothbrush.ogg-1097b2d41d7cc36cd37ae100d2bf4502.oggstr"
+
+[deps]
+
+source_file="res://assets/sound/sfx/toothbrush.ogg"
+dest_files=[ "res://.import/toothbrush.ogg-1097b2d41d7cc36cd37ae100d2bf4502.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

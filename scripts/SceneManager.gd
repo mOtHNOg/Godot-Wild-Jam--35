@@ -24,7 +24,10 @@ func _process(_delta):
 		inactive_nodes.disabled = true
 	
 	if Input.is_action_just_pressed("down"):
-		Global.view_transition(transitions, self, "_on_view_transition")
+		Global.view_transition(transitions, self, "_on_view_transition_covered", "_on_view_transition_over", 0.75)
 
-func _on_view_transition() -> void:
+func _on_view_transition_covered() -> void:
 	Global.views = Global.swap_dict_values(Global.views)
+
+func _on_view_transition_over() -> void:
+	pass

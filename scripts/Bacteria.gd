@@ -116,8 +116,7 @@ func _physics_process(delta) -> void:
 		explode_progress_bar.value = 1 - explode_time_left_percent
 		
 		# play explosion anticipation sound when timer reaches certain point
-		if explosive == false and explode_timer.time_left < 0.8 and explosion_anticipation_sound_played == false:
-			print(explode_timer.time_left)
+		if explosive == false and explode_timer.time_left < 0.9 and explosion_anticipation_sound_played == false:
 			explosion_anticipation_sound_played = true
 			sfx.explosion_anticipation.play()
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scripts/Bacteria.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/probably living objects/bacteria/bacteria0000.png" type="Texture" id=2]
@@ -15,7 +15,6 @@
 [ext_resource path="res://assets/art/probably living objects/bacteria/bacteria shield/shield0003.png" type="Texture" id=13]
 [ext_resource path="res://assets/sound/sfx/shield destroy.wav" type="AudioStream" id=14]
 [ext_resource path="res://assets/sound/sfx/bacteria explosion anticipation.wav" type="AudioStream" id=15]
-[ext_resource path="res://assets/sound/sfx/bacteria explosion.wav" type="AudioStream" id=16]
 [ext_resource path="res://assets/art/probably living objects/bacteria/bacteria shield/shield0001.png" type="Texture" id=18]
 [ext_resource path="res://assets/art/probably living objects/bacteria/bacteria shield/shield0000.png" type="Texture" id=19]
 [ext_resource path="res://assets/art/probably living objects/bacteria/bacteria shield/shield0002.png" type="Texture" id=20]
@@ -177,10 +176,6 @@ stream = ExtResource( 14 )
 
 [node name="ExplosionAnticipation" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 15 )
-volume_db = -8.0
-
-[node name="Explosion" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 16 )
 volume_db = -4.0
 
 [connection signal="area_entered" from="Shield" to="." method="_on_Shield_area_entered"]

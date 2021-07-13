@@ -8,7 +8,7 @@ onready var sfx_poke = $SFX/Poke
 var disabled: bool = false
 var has_toothbrush: bool = false
 
-const rotation_speed = 10
+const rotation_speed = 10 
 const arm_extend_time = 0.2
 const arm_retract_speed = 7
 const additional_extend_distance = 10
@@ -23,6 +23,7 @@ var mouse_pos: Vector2
 var angle_to_mouse_pos: float
 var direction_to_mouse_pos: Vector2
 
+
 signal collided_with_bacteria
 
 func _physics_process(delta):
@@ -33,6 +34,9 @@ func _physics_process(delta):
 		
 		# points towards mouse pos smoothly
 		global_rotation = lerp_angle(global_rotation, angle_to_mouse_pos, rotation_speed * delta)
+		
+		# clamp rotation because it can look pretty funky sometimes
+		global_rotation = clamp(global_rotation, -0.2, 0.2)
 		
 		# only lets you poke if your mouse is to the right of the finger (because it makes sense)
 		if Input.is_action_just_pressed("left_click") and mouse_pos.x > finger.global_position.x:
@@ -54,6 +58,7 @@ func _physics_process(delta):
 		
 		if extending == false:
 			position = lerp(position, rest_pos, arm_retract_speed * delta)
+	print(global_rotation)
 
 func poke() -> void:
 	extending = true
@@ -79,5 +84,6 @@ func _on_Finger_area_entered(area):
 	if extending == true:
 		stop_poke()
 		
-		connect("collided_with_bacteria", area, "_on_finger_collision")
-		emit_signal("collided_with_bacteria", has_toothbrush)
+		if area is Bacteria:
+			connect("collided_with_bacteria", area, "_on_finger_collision")
+			emit_signal("collided_with_bacteria", has_toothbrush)

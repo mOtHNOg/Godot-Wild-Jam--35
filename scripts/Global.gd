@@ -2,6 +2,7 @@ extends Node
 
 # preload
 const screen_flash_object = preload("res://scenes/ScreenFlash.tscn")
+const fade_transition_object = preload("res://scenes/FadeTransition.tscn")
 
 # nodes
 var mouth: Node2D
@@ -61,3 +62,13 @@ func swap_dict_values(dict: Dictionary) -> Dictionary:
 		dict_keys[1] : value_1
 	}
 	return new_dict
+
+func view_transition(where: Node, SceneManager: Node, transition_method: String, speed: float = 0.5, color: Color = Color(0, 0, 0, 0)) -> void:
+	var fade_transition_instance = fade_transition_object.instance()
+	
+	fade_transition_instance.transition_speed = speed
+	fade_transition_instance.transparent_color = color
+	fade_transition_instance.signal_recipient = SceneManager
+	fade_transition_instance.signal_method = transition_method
+	
+	where.add_child(fade_transition_instance)

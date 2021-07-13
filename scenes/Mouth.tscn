@@ -12,7 +12,7 @@
 rotation = -0.000409788
 script = ExtResource( 5 )
 
-[node name="mouth" type="Sprite" parent="."]
+[node name="MouthBackground" type="Sprite" parent="."]
 position = Vector2( 180, 90 )
 z_index = -1
 texture = ExtResource( 4 )

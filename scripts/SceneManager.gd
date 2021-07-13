@@ -1,7 +1,7 @@
 extends Node 
 
 # NODESSSSSSSSSS
-onready var transitions = $Transitions
+onready var transitions = $CanvasLayer/Transitions
 
 var needs_disabling_group_name_template: String = "needs_disabling_{view}"
 
@@ -24,4 +24,7 @@ func _process(_delta):
 		inactive_nodes.disabled = true
 	
 	if Input.is_action_just_pressed("down"):
-		Global.views = Global.swap_dict_values(Global.views)
+		Global.view_transition(transitions, self, "_on_view_transition")
+
+func _on_view_transition() -> void:
+	Global.views = Global.swap_dict_values(Global.views)

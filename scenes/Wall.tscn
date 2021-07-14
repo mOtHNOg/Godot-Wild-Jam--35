@@ -7,14 +7,14 @@
 [ext_resource path="res://assets/art/backgrounds/wall stuff/painting.png" type="Texture" id=5]
 [ext_resource path="res://scenes/WallObject.tscn" type="PackedScene" id=6]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 14, 24 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 16 )
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 44, 34 )
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 43, 27.5 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 59.5, 3 )
@@ -50,7 +50,7 @@ texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Gnome"]
 position = Vector2( 0, -24 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="Daisy" parent="Objects" instance=ExtResource( 6 )]
 position = Vector2( 83, 96.5 )
@@ -78,8 +78,8 @@ position = Vector2( 0, 32 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Objects/Painting"]
-position = Vector2( 0, 31.5 )
-shape = SubResource( 1 )
+position = Vector2( 0, 38 )
+shape = SubResource( 3 )
 
 [node name="Shelf" type="StaticBody2D" parent="."]
 position = Vector2( 107.5, 100 )

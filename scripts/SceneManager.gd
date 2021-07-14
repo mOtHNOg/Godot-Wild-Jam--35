@@ -3,6 +3,7 @@ extends Node
 # NODESSSSSSSSSS
 onready var transitions = $CanvasLayer/Transitions
 onready var view_switch_button = $CanvasLayer/UI/ViewSwitchButton
+onready var sfx_click = $SFX/Click
 
 var switch_view_hotkey_pressed: bool = false
 
@@ -53,6 +54,9 @@ func _on_view_transition_covered() -> void:
 		view_switch_button.texture_normal = button_textures.to_mouth_normal
 		view_switch_button.texture_hover = button_textures.to_mouth_hover
 		view_switch_button.texture_pressed = button_textures.to_mouth_pressed
+		
+		# get rid of screen flashes when transitioning to mouth
+		get_tree().call_group("screen_flash", "queue_free")
 
 func _on_view_transition_over() -> void:
 	# enable button / hotkey
@@ -61,4 +65,5 @@ func _on_view_transition_over() -> void:
 
 func _on_ViewSwitchButton_pressed():
 	view_switch_button.disabled = true
+	sfx_click.play()
 	Global.view_transition(transitions, self, "_on_view_transition_covered", "_on_view_transition_over", 0.75)

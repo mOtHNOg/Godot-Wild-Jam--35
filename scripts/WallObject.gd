@@ -1,6 +1,11 @@
 extends KinematicBody2D
 class_name WallObject
 
+onready var sfx: Dictionary = {
+	"pick_up" : $SFX/PickUp,
+	"drop" : $SFX/Drop
+}
+
 var disabled: bool = false
 
 var mouse_entered: bool = false
@@ -25,13 +30,22 @@ func _physics_process(delta):
 	else:
 		input_pickable = true
 	
-	if Input.is_action_just_pressed("left_click") and mouse_entered == true and Global.picked_up_wall_object == null:
+	if Input.is_action_just_pressed("left_click") and mouse_entered == true and Global.picked_up_wall_object == null and disabled == false:
 		mouse_clicked_inside_collision = true
 		Global.picked_up_wall_object = self
+		
+		sfx.pick_up.pitch_scale = rand_range(0.833, 1.167)
+		sfx.pick_up.play()
 	
-	elif Input.is_action_just_released("left_click"):
+	elif Input.is_action_just_released("left_click") and disabled == false:
+		
+		if Global.picked_up_wall_object != null:
+			sfx.drop.pitch_scale = rand_range(0.833, 1.167)
+			sfx.drop.play()
+		
 		mouse_clicked_inside_collision = false
 		Global.picked_up_wall_object = null
+	
 	
 	if mouse_clicked_inside_collision == true:
 		apply_gravity = true

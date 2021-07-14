@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/Mouth.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/art/ui/to wall button/normal.png" type="Texture" id=4]
 [ext_resource path="res://assets/art/ui/to wall button/hover.png" type="Texture" id=5]
 [ext_resource path="res://assets/art/ui/to wall button/pressed.png" type="Texture" id=6]
+[ext_resource path="res://assets/sound/sfx/button click.wav" type="AudioStream" id=7]
 
 [node name="SceneManager" type="Node"]
 script = ExtResource( 3 )
@@ -38,5 +39,11 @@ __meta__ = {
 visible = false
 
 [node name="Mouth" parent="." instance=ExtResource( 1 )]
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Click" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 7 )
+volume_db = 4.0
 
 [connection signal="pressed" from="CanvasLayer/UI/ViewSwitchButton" to="." method="_on_ViewSwitchButton_pressed"]

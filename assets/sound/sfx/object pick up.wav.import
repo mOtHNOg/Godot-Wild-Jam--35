@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/object pick up.wav-e3a0114170ed3d601f465ebdb844a1dd.sample"
+
+[deps]
+
+source_file="res://assets/sound/sfx/object pick up.wav"
+dest_files=[ "res://.import/object pick up.wav-e3a0114170ed3d601f465ebdb844a1dd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

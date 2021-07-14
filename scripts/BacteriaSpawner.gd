@@ -10,8 +10,8 @@ const Bacteria = preload("res://scenes/Bacteria.tscn")
 var spawn_data: Dictionary = {
 	"min_spawn_time" : 2,
 	"max_spawn_time" : 4,
-	"shielded_chance" : 0,
-	"explosive_chance" : 0
+	"shielded_chance" : 0.25,
+	"explosive_chance" : 0.25
 }
 
 var phase_2_data: Dictionary

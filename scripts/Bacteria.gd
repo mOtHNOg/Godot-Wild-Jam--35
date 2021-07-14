@@ -159,7 +159,7 @@ func explode() -> void:
 	
 	# uses global function to play sound elsewhere so the bacteria can get killed instantly
 	# get_parent x2 is mouth scene: Mouth > BacteriaParent > Bacteria
-	Global.play_sound(get_parent().get_parent(), "res://assets/sound/sfx/bacteria explosion.wav", -4)
+	Global.play_sound(get_parent().get_parent(), "res://assets/sound/sfx/bacteria explosion.wav", -12)
 	
 	if disabled == false:
 		Global.screen_flash(Global.mouth, 0.8, Color(1, 1, 1, 0.9))

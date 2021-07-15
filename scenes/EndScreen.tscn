@@ -1,61 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/EndScreen.gd" type="Script" id=1]
 [ext_resource path="res://assets/font/new_dynamicfont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/art/backgrounds/end screen - toothbrush and arm.png" type="Texture" id=3]
 [ext_resource path="res://assets/art/backgrounds/end screen - background person.png" type="Texture" id=4]
-
-[sub_resource type="Animation" id=1]
-resource_name = "EndScreen"
-length = 11.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("CanvasLayer/ScreenFlash:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 2, 4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Labels/TopText:percent_visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 6.5, 7.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 0.0, 1.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Labels/BottomText:percent_visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 8.5, 11 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 0.0, 1.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("BackgroundPerson:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 3.5, 5.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
+[ext_resource path="res://assets/resources/EndScreen_animation.tres" type="Animation" id=5]
+[ext_resource path="res://assets/resources/EndScreen_animation2.tres" type="Animation" id=6]
+[ext_resource path="res://assets/sound/sfx/text.wav" type="AudioStream" id=7]
 
 [node name="EndScreen" type="Node"]
 script = ExtResource( 1 )
@@ -121,7 +72,7 @@ margin_top = -40.0
 margin_right = 171.0
 margin_bottom = -8.0
 custom_fonts/font = ExtResource( 2 )
-text = "But brushing your teeth without it went so well you might just keep using your fingers."
+text = "Unfortunately you still don't know where your dental floss is... Or your toothpicks..... Or your mouthwash......."
 align = 1
 valign = 1
 autowrap = true
@@ -131,4 +82,14 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/EndScreen = SubResource( 1 )
+anims/EndScreen = ExtResource( 5 )
+anims/EndScreen2 = ExtResource( 6 )
+anims/EndScreen_animation = ExtResource( 5 )
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Explosion" type="AudioStreamPlayer" parent="SFX"]
+
+[node name="Text" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 7 )
+volume_db = -8.0

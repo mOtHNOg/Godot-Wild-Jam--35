@@ -5,7 +5,8 @@ onready var bacteria_parent = $BacteriaParent
 
 var disabled: bool = false
 
-var teeth_health: int = 5
+const max_teeth_health = 8
+var teeth_health: int = max_teeth_health
 
 func _ready() -> void:
 	Global.mouth = self

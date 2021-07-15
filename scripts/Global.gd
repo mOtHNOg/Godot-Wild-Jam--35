@@ -15,7 +15,13 @@ onready var views: Dictionary = {
 }
 
 var picked_up_wall_object: WallObject = null
-var has_toothbrush: bool = false
+var has_toothbrush: bool = true
+
+# keeps track of health globally
+const max_teeth_health = 8
+var teeth_health: int = max_teeth_health
+var teeth_health_percent: float = 0.5
+
 
 # starts as true so the first transition will be not reversed
 var last_transition_reversed: bool = true
@@ -31,6 +37,11 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("fullscreen"):
 		OS.window_fullscreen = ! OS.window_fullscreen
+
+func _process(delta):
+	teeth_health_percent = teeth_health as float / max_teeth_health
+#	print(teeth_health_percent)
+
 
 # my global functions
 func play_sound(where: Node, sound_path: String, volume: float = 0, pitch: float = 1):

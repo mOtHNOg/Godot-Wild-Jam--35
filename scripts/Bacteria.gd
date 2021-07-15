@@ -167,6 +167,8 @@ func explode() -> void:
 	if disabled == false:
 		Global.screen_flash(Global.mouth, 0.8, Color(1, 1, 1, 0.9))
 	
+	Global.teeth_health -= 1
+	
 	queue_free()
 
 func die() -> void:

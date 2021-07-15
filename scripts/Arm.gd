@@ -81,6 +81,11 @@ func _on_Tween_tween_completed(_object, _key):
 
 func _on_Finger_area_entered(area):
 	if extending == true:
+		
+		# if equipped with toothbrush you win! hooray!
+		if Global.has_toothbrush == true:
+			get_tree().change_scene("res://scenes/EndScreen.tscn")
+		
 		stop_poke()
 		
 		if area is Bacteria:

@@ -15,6 +15,7 @@ onready var views: Dictionary = {
 }
 
 var picked_up_wall_object: WallObject = null
+var has_toothbrush: bool = false
 
 # starts as true so the first transition will be not reversed
 var last_transition_reversed: bool = true

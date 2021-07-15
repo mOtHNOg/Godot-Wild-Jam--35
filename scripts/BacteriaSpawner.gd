@@ -9,7 +9,7 @@ onready var bacteria_parent = get_parent().get_node("BacteriaParent")
 const Bacteria = preload("res://scenes/Bacteria.tscn")
 
 var spawn_data: Dictionary = {
-	"phase_time" : 5,
+	"phase_time" : 24,
 	"min_spawn_time" : 3,
 	"max_spawn_time" : 6,
 	"max_cluster_size" : 2,
@@ -18,10 +18,10 @@ var spawn_data: Dictionary = {
 }
 
 var phase_data: Dictionary = {
-	"2" : [5, 3, 5, 2, 0.2, 0.2],
-	"3" : [5, 3, 4, 3, 0.33, 0.33],
-	"4" : [10, 2, 4, 3, 0, 0.75],
-	"5" : [20, 2, 3, 3, 0.5, 0.33]
+	"2" : [24, 3, 5, 2, 0.2, 0.2],
+	"3" : [24, 3, 4, 3, 0.33, 0.33],
+	"4" : [24, 2, 4, 3, 0, 0.75],
+	"5" : [24, 2, 3, 3, 0.5, 0.33]
 }
 
 var current_phase: int = 1
@@ -78,10 +78,12 @@ func _on_SpawnTimer_timeout() -> void:
 func _on_PhaseTimer_timeout():
 	current_phase += 1
 	
-#	print(current_phase)
-#	print("phase ", current_phase, " data: ", phase_data[str(current_phase)])
-	
-	spawn_data = Global.set_dict_to_array(spawn_data, phase_data[str(current_phase)])
-	
-	phase_timer.wait_time = spawn_data.phase_time
-	phase_timer.start()
+	if current_phase <= phase_data.keys().size() + 1:
+		
+		print(current_phase)
+		print("phase ", current_phase, " data: ", phase_data[str(current_phase)])
+		
+		spawn_data = Global.set_dict_to_array(spawn_data, phase_data[str(current_phase)])
+		
+		phase_timer.wait_time = spawn_data.phase_time
+		phase_timer.start()

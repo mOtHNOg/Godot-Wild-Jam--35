@@ -76,3 +76,18 @@ func view_transition(where: Node, SceneManager: Node, transition_covered_method:
 	transition_instance.signal_over_method = transition_over_method
 	
 	where.add_child(transition_instance)
+
+func set_dict_to_array(dict: Dictionary, array: Array) -> Dictionary:
+	var dict_keys: Array = dict.keys()
+	
+	# doesn't work if dictionary and array aren't same length
+	if dict_keys.size() != array.size():
+		print("Error! dict and array's sizes don't match.")
+		return dict
+	
+	var new_dict: Dictionary = dict.duplicate()
+	
+	for i in array.size():
+		new_dict[dict_keys[i]] = array[i]
+	
+	return new_dict

@@ -57,7 +57,6 @@ func _process(delta):
 		music_lfo_effect.cutoff_hz = lerp(music_lfo_effect.cutoff_hz, max_music_lfo_cutoff_hz, music_lfo_speed * delta)
 	else:
 		music_lfo_effect.cutoff_hz = lerp(music_lfo_effect.cutoff_hz, min_music_lfo_cutoff_hz, music_lfo_speed * delta)
-	print(music_lfo_effect.cutoff_hz)
 
 func _on_view_transition_covered() -> void:
 	Global.views = Global.swap_dict_values(Global.views)

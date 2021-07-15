@@ -2,13 +2,14 @@ extends Node2D
 
 # node references
 onready var spawn_timer = $SpawnTimer
+onready var phase_timer = $PhaseTimer
 onready var bacteria_parent = get_parent().get_node("BacteriaParent")
 
 
 const Bacteria = preload("res://scenes/Bacteria.tscn")
 
 var spawn_data: Dictionary = {
-	"phase_time" : 30,
+	"phase_time" : 5,
 	"min_spawn_time" : 3,
 	"max_spawn_time" : 6,
 	"max_cluster_size" : 2,
@@ -16,8 +17,14 @@ var spawn_data: Dictionary = {
 	"explosive_chance" : 0.0
 }
 
-var phase_2_values: Array = [20, 2, 4, 3, 0.2, 0.2]
-var phase_3_values: Array = []
+var phase_data: Dictionary = {
+	"2" : [5, 3, 5, 2, 0.2, 0.2],
+	"3" : [5, 3, 4, 3, 0.33, 0.33],
+	"4" : [10, 2, 4, 3, 0, 0.75],
+	"5" : [20, 2, 3, 3, 0.5, 0.33]
+}
+
+var current_phase: int = 1
 
 export var min_spawn_time: int
 export var max_spawn_time: int
@@ -26,22 +33,18 @@ export var auto_start: bool = false
 export var bacteria_move_area_boundaries = [Vector2(), Vector2()]
 
 func _ready():
-	if auto_start == true:
-		start()
 	
-	print(spawn_data)
-	spawn_data = Global.set_dict_to_array(spawn_data, phase_2_values)
-	print(spawn_data)
-
-func start() -> void:
 	spawn_bacteria()
 	
-	# bacteria only spawn precisely on a second
-	spawn_timer.wait_time = int(rand_range(spawn_data.min_spawn_time, spawn_data.max_spawn_time + 1))
 	spawn_timer.start()
+	
+	phase_timer.wait_time = spawn_data.phase_time
+	phase_timer.start()
+	
+	print(spawn_data)
+	spawn_data = Global.set_dict_to_array(spawn_data, phase_data["2"])
+	print(spawn_data)
 
-func stop() -> void:
-	spawn_timer.stop()
 
 func spawn_bacteria() -> void:
 	var spawn_amount = int(rand_range(0, spawn_data.max_cluster_size + 1))
@@ -64,6 +67,21 @@ func spawn_bacteria() -> void:
 			break
 		else:
 			yield(get_tree().create_timer(0.5), "timeout")
+	
+	# bacteria only spawn precisely on a second
+	spawn_timer.wait_time = int(rand_range(spawn_data.min_spawn_time, spawn_data.max_spawn_time + 1))
 
 func _on_SpawnTimer_timeout() -> void:
 	spawn_bacteria()
+
+
+func _on_PhaseTimer_timeout():
+	current_phase += 1
+	
+#	print(current_phase)
+#	print("phase ", current_phase, " data: ", phase_data[str(current_phase)])
+	
+	spawn_data = Global.set_dict_to_array(spawn_data, phase_data[str(current_phase)])
+	
+	phase_timer.wait_time = spawn_data.phase_time
+	phase_timer.start()

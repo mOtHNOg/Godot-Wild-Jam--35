@@ -8,4 +8,8 @@ script = ExtResource( 1 )
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 10.0
 
+[node name="PhaseTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="timeout" from="PhaseTimer" to="." method="_on_PhaseTimer_timeout"]

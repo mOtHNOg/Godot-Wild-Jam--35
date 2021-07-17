@@ -4,9 +4,10 @@ extends Node2D
 onready var tween = $Tween
 onready var finger = $Finger
 onready var sfx_poke = $SFX/Poke
+onready var arm_sprite = $ArmSprite
+onready var toothbrush_collision = $Finger/ToothbrushCollision
 
 var disabled: bool = false
-var has_toothbrush: bool = false
 
 const rotation_speed = 10 
 const arm_extend_time = 0.2
@@ -58,6 +59,12 @@ func _physics_process(delta):
 		
 		if extending == false:
 			position = lerp(position, rest_pos, arm_retract_speed * delta)
+	
+	# set sprite to toothbrush after finding it
+	if Global.has_toothbrush == true:
+		arm_sprite.texture = load("res://assets/art/probably living objects/tooth brush arm.png")
+		arm_sprite.modulate = Color(1, 1, 1, 1)
+		toothbrush_collision.set_deferred("disabled", false)
 
 func poke() -> void:
 	extending = true
@@ -90,4 +97,4 @@ func _on_Finger_area_entered(area):
 		
 		if area is Bacteria:
 			connect("collided_with_bacteria", area, "_on_finger_collision")
-			emit_signal("collided_with_bacteria", has_toothbrush)
+			emit_signal("collided_with_bacteria")

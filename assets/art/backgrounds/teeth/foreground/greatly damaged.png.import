@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mouth.png-d2d0e485495806fefecfc92a176c5d20.stex"
+path="res://.import/greatly damaged.png-e7d2b8593830d71e47c63d754fe6d7f4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/backgrounds/mouth.png"
-dest_files=[ "res://.import/mouth.png-d2d0e485495806fefecfc92a176c5d20.stex" ]
+source_file="res://assets/art/backgrounds/teeth/foreground/greatly damaged.png"
+dest_files=[ "res://.import/greatly damaged.png-e7d2b8593830d71e47c63d754fe6d7f4.stex" ]
 
 [params]
 

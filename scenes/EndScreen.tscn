@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/EndScreen.gd" type="Script" id=1]
 [ext_resource path="res://assets/font/new_dynamicfont.tres" type="DynamicFont" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/resources/EndScreen_animation.tres" type="Animation" id=5]
 [ext_resource path="res://assets/resources/EndScreen_animation2.tres" type="Animation" id=6]
 [ext_resource path="res://assets/sound/sfx/text.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/sound/sfx/toothbrush explosion.wav" type="AudioStream" id=8]
 
 [node name="EndScreen" type="Node"]
 script = ExtResource( 1 )
@@ -89,7 +90,8 @@ anims/EndScreen_animation = ExtResource( 5 )
 [node name="SFX" type="Node" parent="."]
 
 [node name="Explosion" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 8 )
 
 [node name="Text" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 7 )
-volume_db = -8.0
+volume_db = -2.0

@@ -37,7 +37,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 8.5, 10.5, 11.7, 12.5, 14, 15 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 0.0, 0.57, 0.57, 0.78, 0.78, 1.0 ]
+"values": [ 0.0, 0.0, 0.57, 0.57, 0.785, 0.785, 1.0 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("BackgroundPerson:modulate")

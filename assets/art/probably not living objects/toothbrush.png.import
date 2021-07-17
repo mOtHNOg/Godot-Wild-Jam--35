@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mouth background.png-0a7921835d3e8db87733659780bbd653.stex"
+path="res://.import/toothbrush.png-74fa87603ae1d8e7945fbf8132362762.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/backgrounds/mouth background.png"
-dest_files=[ "res://.import/mouth background.png-0a7921835d3e8db87733659780bbd653.stex" ]
+source_file="res://assets/art/probably not living objects/toothbrush.png"
+dest_files=[ "res://.import/toothbrush.png-74fa87603ae1d8e7945fbf8132362762.stex" ]
 
 [params]
 

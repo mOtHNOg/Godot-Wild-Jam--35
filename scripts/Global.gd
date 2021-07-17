@@ -15,12 +15,14 @@ onready var views: Dictionary = {
 }
 
 var picked_up_wall_object: WallObject = null
-var has_toothbrush: bool = true
+
+var toothbrush_exists: bool = false
+var has_toothbrush: bool = false
 
 # keeps track of health globally
-const max_teeth_health = 8
+const max_teeth_health = 6
 var teeth_health: int = max_teeth_health
-var teeth_health_percent: float = 0.5
+var teeth_health_percent: float = 1
 
 
 # starts as true so the first transition will be not reversed
@@ -33,6 +35,7 @@ var flash_effects: bool = true
 # built in functions
 func _ready():
 	randomize()
+	print(teeth_health_percent)
 
 func _input(event):
 	if event.is_action_pressed("fullscreen"):

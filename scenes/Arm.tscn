@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/Arm.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/probably living objects/arm.png" type="Texture" id=2]
@@ -6,6 +6,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 22, 6 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 20, 8 )
 
 [node name="Arm" type="Node2D" groups=[
 "needs_disabling_Mouth",
@@ -25,6 +28,11 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Finger"]
 position = Vector2( -14, 0 )
 shape = SubResource( 1 )
+
+[node name="ToothbrushCollision" type="CollisionShape2D" parent="Finger"]
+position = Vector2( -24, 14 )
+shape = SubResource( 2 )
+disabled = true
 
 [node name="Tween" type="Tween" parent="."]
 

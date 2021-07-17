@@ -2,10 +2,11 @@ extends Node
 
 # NODESSSSSSSSSS
 onready var transitions = $CanvasLayer/Transitions
-onready var view_switch_button = $CanvasLayer/UI/ViewSwitchButton
+onready var view_switch_button = $CanvasLayer/UI_HUD/ViewSwitchButton
 onready var sfx_click = $SFX/Click
-onready var music = $Music
-
+onready var music = $Music/Music
+onready var activity_warning_label = $CanvasLayer/UI_HUD/ActivityWarning
+onready var activity_warning_timer = $CanvasLayer/UI_HUD/ActivityWarning/BlinkTimer
 
 var switch_view_hotkey_pressed: bool = false
 
@@ -16,6 +17,7 @@ const max_music_lfo_cutoff_hz = 10000
 const min_music_lfo_cutoff_hz = 1000
 var music_lfo_speed: float = 8
 
+# ui / hud stuff
 var button_textures: Dictionary = {
 	"to_wall_normal" : load("res://assets/art/ui/to wall button/normal.png"),
 	"to_wall_hover" : load("res://assets/art/ui/to wall button/hover.png"),
@@ -24,6 +26,8 @@ var button_textures: Dictionary = {
 	"to_mouth_hover" : load("res://assets/art/ui/to mouth button/hover.png"),
 	"to_mouth_pressed" : load("res://assets/art/ui/to mouth button/pressed.png")
 }
+
+var blink_timer_started: bool = false
 
 var needs_disabling_group_name_template: String = "needs_disabling_{view}"
 var needs_disabling_groups: Dictionary
@@ -55,8 +59,28 @@ func _process(delta):
 	# apply music lfo effect
 	if Global.views.active == Global.mouth:
 		music_lfo_effect.cutoff_hz = lerp(music_lfo_effect.cutoff_hz, max_music_lfo_cutoff_hz, music_lfo_speed * delta)
+		
+		# handle activity warning stuff
+		if Global.toothbrush_exists == true and Global.has_toothbrush == false:
+			activity_warning_label.show()
+			if blink_timer_started == false:
+				blink_timer_started = true
+				activity_warning_timer.start()
+			print(activity_warning_timer.time_left)
+		
+		elif Global.has_toothbrush == true:
+			print("eee")
+			blink_timer_started = false
+			activity_warning_timer.stop()
+			activity_warning_label.hide()
+	
+	# still applying music lfo effect
 	else:
 		music_lfo_effect.cutoff_hz = lerp(music_lfo_effect.cutoff_hz, min_music_lfo_cutoff_hz, music_lfo_speed * delta)
+		
+		# still handling activity warning stuff
+		activity_warning_label.hide()
+		activity_warning_timer.stop()
 
 func _on_view_transition_covered() -> void:
 	Global.views = Global.swap_dict_values(Global.views)
@@ -83,3 +107,8 @@ func _on_ViewSwitchButton_pressed():
 	view_switch_button.disabled = true
 	sfx_click.play()
 	Global.view_transition(transitions, self, "_on_view_transition_covered", "_on_view_transition_over", 0.75)
+
+
+func _on_BlinkTimer_timeout():
+	print("hiiiii")
+	activity_warning_label.visible = ! activity_warning_label.visible

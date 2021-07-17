@@ -167,8 +167,6 @@ func explode() -> void:
 	if disabled == false:
 		Global.screen_flash(Global.mouth, 0.8, Color(1, 1, 1, 0.9))
 	
-	Global.teeth_health -= 1
-	
 	queue_free()
 
 func die() -> void:
@@ -203,18 +201,15 @@ func _on_ExplodeTimer_timeout() -> void:
 func _on_MoveDelayTimer_timeout() -> void:
 	set_movement()
 
-func _on_finger_collision(poked_with_toothbrush: bool) -> void:
-	if poked_with_toothbrush == true:
-		pass
-	else:
-		if explosive == true:
-			explode()
-		else:
-			die()
+func _on_finger_collision() -> void:
+	if explosive == true and Global.has_toothbrush == false:
+		explode()
+	elif explosive == false:
+		die()
 
 func _on_Shield_area_entered(area):
 	var arm: Node2D = area.get_parent()
-	if arm.extending == true:
+	if arm.extending == true and Global.has_toothbrush == false:
 		# re enable bacteria collision
 		collision.set_deferred("disabled", false)
 		

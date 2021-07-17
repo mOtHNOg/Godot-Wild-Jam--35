@@ -33,12 +33,14 @@ func _ready():
 		bottom_label.text = bottom_text["2"]
 		end_screen_animation = "EndScreen2"
 	
-	elif Global.teeth_health_percent == 0:
+	elif Global.teeth_health_percent <= 0:
 		bottom_label.text = bottom_text["3"]
 	
 	animation_player.play(end_screen_animation)
+	
+	sfx_explosion.play()
 
-func _process(delta):
+func _physics_process(delta):
 	if current_revealing_label.percent_visible != previous_percent_visible:
 		if text_sound_time_left == 0:
 			

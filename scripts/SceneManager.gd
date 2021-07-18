@@ -6,6 +6,7 @@ onready var view_switch_button = $CanvasLayer/UI_HUD/ViewSwitchButton
 onready var sfx_click = $SFX/Click
 onready var sfx_toothbrush = $SFX/Toothbrush
 onready var sfx_activity_warning = $SFX/ActivityWarning
+onready var sfx_start = $SFX/Start
 onready var music = $Music/Music
 onready var activity_warning_label = $CanvasLayer/UI_HUD/ActivityWarning
 onready var activity_warning_timer = $CanvasLayer/UI_HUD/ActivityWarning/BlinkTimer

@@ -5,12 +5,14 @@ onready var labels = $Labels
 onready var continue_button_text = $ContinueButton/Text
 onready var sfx_click = $SFX/Click
 onready var sfx_slide = $SFX/Slide
+onready var sfx_start = $SFX/Start
 
 onready var labels_pos: Vector2 = labels.rect_position
 var labels_speed: float = 6
 var current_labels: int = 1
 
-
+func _ready():
+	Global.screen_flash(self, 1, Color(1, 1, 1, 1))
 
 func _physics_process(delta):
 	labels.rect_position = lerp(labels.rect_position, labels_pos, labels_speed * delta)

@@ -1,10 +1,9 @@
-tool
 extends Label
 class_name LabelWithSound
 
 onready var sfx_text = $Text
 
-var previous_percent_visible: float = percent_visible
+onready var previous_percent_visible: float = percent_visible
 
 const text_sound_time = 10
 var text_sound_time_left: int = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/Mouth.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://assets/font/new_dynamicfont.tres" type="DynamicFont" id=9]
 [ext_resource path="res://assets/sound/sfx/activity warning.wav" type="AudioStream" id=10]
 [ext_resource path="res://assets/sound/music/Manic Mental Dental Defender.mp3" type="AudioStream" id=11]
+[ext_resource path="res://assets/sound/sfx/poke.wav" type="AudioStream" id=12]
 
 [node name="SceneManager" type="Node"]
 script = ExtResource( 3 )
@@ -75,6 +76,14 @@ stream = ExtResource( 8 )
 [node name="ActivityWarning" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 10 )
 volume_db = -8.0
+
+[node name="Start" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 12 )
+pitch_scale = 0.3
+autoplay = true
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="Music" type="Node" parent="."]
 

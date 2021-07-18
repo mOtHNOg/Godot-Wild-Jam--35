@@ -1,12 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/EndScreen.gd" type="Script" id=1]
-[ext_resource path="res://assets/font/new_dynamicfont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scenes/LabelWithSound.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/art/backgrounds/end screen - toothbrush and arm.png" type="Texture" id=3]
 [ext_resource path="res://assets/art/backgrounds/end screen - background person.png" type="Texture" id=4]
 [ext_resource path="res://assets/resources/EndScreen_animation.tres" type="Animation" id=5]
 [ext_resource path="res://assets/resources/EndScreen_animation2.tres" type="Animation" id=6]
-[ext_resource path="res://assets/sound/sfx/text.wav" type="AudioStream" id=7]
 [ext_resource path="res://assets/sound/sfx/toothbrush explosion.wav" type="AudioStream" id=8]
 
 [node name="EndScreen" type="Node"]
@@ -32,6 +31,7 @@ centered = false
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ScreenFlash" type="ColorRect" parent="CanvasLayer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -48,22 +48,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TopText" type="Label" parent="Labels"]
+[node name="TopText" parent="Labels" instance=ExtResource( 2 )]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -86.5
 margin_top = 8.0
 margin_right = 86.5001
 margin_bottom = 22.0
-custom_fonts/font = ExtResource( 2 )
 text = "You found your toothbrush!"
 align = 1
 percent_visible = 0.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="BottomText" type="Label" parent="Labels"]
+[node name="BottomText" parent="Labels" instance=ExtResource( 2 )]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -72,15 +68,11 @@ margin_left = -169.0
 margin_top = -40.0
 margin_right = 171.0
 margin_bottom = -8.0
-custom_fonts/font = ExtResource( 2 )
 text = "Unfortunately you still don't know where your dental floss is... Or your toothpicks..... Or your mouthwash......."
 align = 1
 valign = 1
 autowrap = true
 percent_visible = 0.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/EndScreen = ExtResource( 5 )
@@ -91,7 +83,3 @@ anims/EndScreen_animation = ExtResource( 5 )
 
 [node name="Explosion" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 8 )
-
-[node name="Text" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 7 )
-volume_db = -2.0

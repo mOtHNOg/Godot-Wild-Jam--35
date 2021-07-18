@@ -20,7 +20,6 @@ var disabled: bool = false
 
 func _ready() -> void:
 	Global.mouth = self
-	print(damaged_teeth_textures["slightly_damaged"]["background"])
 
 func _physics_process(_delta):
 	# when disabled is true, visible will be false and vice versa

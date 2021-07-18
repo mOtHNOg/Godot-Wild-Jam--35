@@ -35,12 +35,13 @@ var needs_disabling_group_name_template: String = "needs_disabling_{view}"
 var needs_disabling_groups: Dictionary
 
 func _ready():
+	Global.views.active = Global.mouth
+	Global.views.inactive = Global.wall
+	
 	if Global.did_tutorial == true:
 		Global.screen_flash(Global.mouth, 0.5, Color(0.988, 0.961, 0.757, 0.9))
 
 func _process(delta):
-	Global.views.active = Global.mouth
-	Global.views.inactive = Global.wall
 	
 	needs_disabling_groups= {
 		"active" : needs_disabling_group_name_template.format({"view" : Global.views.active.name}),

@@ -9,9 +9,11 @@ var mouth: Node2D
 var wall: Node2D
 
 # control
+var did_tutorial: bool = false
+
 onready var views: Dictionary = {
-	"active" : get_node_or_null("/root/SceneManager/Mouth"),
-	"inactive" : get_node_or_null("/root/SceneManager/Wall")
+	"active" : null,
+	"inactive" : null
 }
 
 var picked_up_wall_object: WallObject = null
@@ -35,7 +37,7 @@ var flash_effects: bool = true
 # built in functions
 func _ready():
 	randomize()
-	print(teeth_health_percent)
+	
 
 func _input(event):
 	if event.is_action_pressed("fullscreen"):
@@ -43,8 +45,6 @@ func _input(event):
 
 func _process(delta):
 	teeth_health_percent = teeth_health as float / max_teeth_health
-#	print(teeth_health_percent)
-
 
 # my global functions
 func play_sound(where: Node, sound_path: String, volume: float = 0, pitch: float = 1):

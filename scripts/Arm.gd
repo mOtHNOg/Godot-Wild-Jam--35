@@ -40,7 +40,7 @@ func _physics_process(delta):
 		global_rotation = clamp(global_rotation, -0.2, 0.2)
 		
 		# only lets you poke if your mouse is to the right of the finger (because it makes sense)
-		if Input.is_action_just_pressed("left_click") and mouse_pos.x > finger.global_position.x:
+		if Input.is_action_just_pressed("click") and mouse_pos.x > finger.global_position.x:
 			
 			# only lets you poke if you are retracted enough
 			if position.distance_to(rest_pos) < retracted_distance_to_rest_pos:

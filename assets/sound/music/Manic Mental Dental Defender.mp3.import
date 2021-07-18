@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Manic Mental Dental Defender.mp3-00fbf01d47f0d253428c711ac80ed59c.mp3str"
+
+[deps]
+
+source_file="res://assets/sound/music/Manic Mental Dental Defender.mp3"
+dest_files=[ "res://.import/Manic Mental Dental Defender.mp3-00fbf01d47f0d253428c711ac80ed59c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -29,7 +29,7 @@ func _ready():
 	if Global.teeth_health_percent >= 0.75:
 		bottom_label.text = bottom_text["1"]
 	
-	elif Global.teeth_health_percent < 0.75 and Global.teeth_health_percent != 0:
+	elif Global.teeth_health_percent < 0.75 and Global.teeth_health_percent > 0:
 		bottom_label.text = bottom_text["2"]
 		end_screen_animation = "EndScreen2"
 	

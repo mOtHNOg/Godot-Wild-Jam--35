@@ -1,6 +1,8 @@
 extends Node2D
 
-#onready var toothbrush_layer = $ToothbrushLayer
+onready var toothbrush_parent = $ToothbrushParent
+#onready var toothbrush_aura_parent = $ToothbrushAuraParent
+
 const toothbrush_object = preload("res://scenes/Toothbrush.tscn")
 
 var disabled: bool = false
@@ -13,4 +15,4 @@ func _process(_delta) -> void:
 
 func _spawn_toothbrush() -> void:
 	var toothbrush_instance = toothbrush_object.instance()
-	add_child(toothbrush_instance)
+	toothbrush_parent.add_child(toothbrush_instance)

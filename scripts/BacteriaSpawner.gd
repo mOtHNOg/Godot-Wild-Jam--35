@@ -9,7 +9,7 @@ onready var bacteria_parent = get_parent().get_node("BacteriaParent")
 const Bacteria = preload("res://scenes/Bacteria.tscn")
 
 var spawn_data: Dictionary = {
-	"phase_time" : 2,
+	"phase_time" : 20,
 	"min_spawn_time" : 3,
 	"max_spawn_time" : 5,
 	"max_cluster_size" : 3,
@@ -18,10 +18,10 @@ var spawn_data: Dictionary = {
 }
 
 var phase_data: Dictionary = {
-	"2" : [1, 2, 4, 3, 0, 0.3],
-	"3" : [1, 2, 4, 3, 0.66, 0.15],
-	"4" : [2, 2, 3, 3, 0, 0.75],
-	"5" : [3, 1, 3, 3, 0.87, 0.4]
+	"2" : [15, 2, 4, 3, 0, 0.3],
+	"3" : [15, 2, 4, 3, 0.66, 0.15],
+	"4" : [20, 2, 3, 3, 0, 0.75],
+	"5" : [32, 1, 3, 3, 0.87, 0.4]
 }
 
 var current_phase: int = 1

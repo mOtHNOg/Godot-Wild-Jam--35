@@ -22,14 +22,17 @@ onready var sfx = {
 var disabled: bool = false
 
 # bacteria will move to random positions within these vectors
-var move_area_boundaries = [Vector2(), Vector2()]
+export var move_area_boundaries = [Vector2(), Vector2()]
 
 # combat stuff???
-var shielded: bool = false
-var explosive: bool = false
+export var shielded: bool = false
+export var explosive: bool = false
 
 const shielded_progress_bar_offset = Vector2(0, -5)
 const explosive_retreat_position = Vector2(416, 90)
+
+# stuff used in tutorial
+export var tutorial_mode: bool = false
 
 # movement variables
 const min_speed = 90
@@ -59,13 +62,20 @@ onready var random_rotation_direction = possible_rotation_directions[int(rand_ra
 signal exploded
 
 func _ready() -> void:
-	connect("finished_moving", self, "set_movement_delay")
-	connect("exploded", Global.mouth, "_on_bacteria_exploded")
+	if tutorial_mode == false:
+		connect("finished_moving", self, "set_movement_delay")
+		connect("exploded", Global.mouth, "_on_bacteria_exploded")
 	
 	if explosive == false:
 		explode_timer.wait_time = int(rand_range(explosion_timer_data.normal_min_time, explosion_timer_data.normal_max_time))
 	else:
 		explode_timer.wait_time = int(rand_range(explosion_timer_data.explosive_min_time, explosion_timer_data.explosive_max_time))
+	
+	# used in tutorial
+	if tutorial_mode == true:
+		explode_timer_delay.stop()
+		explode_progress_bar_parent.hide()
+		random_speed = 0
 	
 	# set random sprite startign rotation (so there's more variety)
 	sprite.rotation_degrees = rand_range(0, 360)
@@ -90,7 +100,8 @@ func _ready() -> void:
 		sprite.material = unique_sprite_material
 		sprite.material.set_shader_param("Shift_Hue", random_hue)
 	
-	set_movement()
+	if tutorial_mode == false:
+		set_movement()
 
 func _physics_process(delta) -> void:
 	# movement
@@ -154,20 +165,26 @@ func disable(hide: bool = false) -> void:
 		hide()
 
 func explode() -> void:
-	emit_signal("exploded")
-	
-	# uses global function to play sound elsewhere so the bacteria can get killed instantly
-	# get_parent x2 is mouth scene: Mouth > BacteriaParent > Bacteria
-	if disabled == false:
-		Global.play_sound(get_parent().get_parent(), "res://assets/sound/sfx/bacteria explosion.wav", -8)
-	else:
-		# plays slightly quieter when disabled
-		Global.play_sound(get_parent().get_parent(), "res://assets/sound/sfx/bacteria explosion.wav", -14)
-	
-	if disabled == false:
-		Global.screen_flash(Global.mouth, 0.8, Color(1, 1, 1, 0.9))
-	
-	queue_free()
+	if Global.has_toothbrush == false:
+		if tutorial_mode == false:
+			emit_signal("exploded")
+			
+			# uses global function to play sound elsewhere so the bacteria can get killed instantly
+			# get_parent x2 is mouth scene: Mouth > BacteriaParent > Bacteria
+			if disabled == false:
+				Global.play_sound(get_parent().get_parent(), "res://assets/sound/sfx/bacteria explosion.wav", -8)
+			else:
+				# plays slightly quieter when disabled
+				Global.play_sound(get_parent().get_parent(), "res://assets/sound/sfx/bacteria explosion.wav", -14)
+			
+			if disabled == false:
+				Global.screen_flash(Global.mouth, 0.8, Color(1, 1, 1, 0.9))
+			
+			queue_free()
+		else:
+			Global.play_sound(get_parent().get_parent(), "res://assets/sound/sfx/bacteria explosion.wav", -8)
+			Global.screen_flash(get_node("/root/TutorialPage"), 0.8, Color(1, 1, 1, 0.9))
+			queue_free()
 
 func die() -> void:
 	
@@ -202,7 +219,7 @@ func _on_MoveDelayTimer_timeout() -> void:
 	set_movement()
 
 func _on_finger_collision() -> void:
-	if explosive == true and Global.has_toothbrush == false:
+	if explosive == true:
 		explode()
 	elif explosive == false:
 		die()

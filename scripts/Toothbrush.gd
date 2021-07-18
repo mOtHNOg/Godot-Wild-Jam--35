@@ -5,6 +5,9 @@ onready var tween = $Tween
 onready var animation_player = $AnimationPlayer
 onready var collision = $CollisionShape2D
 onready var pick_up_sfx = $PickUpSFX
+#onready var aura_parent: Node2D = Global.wall.toothbrush_aura_parent
+
+const aura_object = preload("res://scenes/ToothbrushAura.tscn")
 
 # position / animation related variables
 onready var final_pos: Vector2 = get_viewport().size / 2
@@ -28,7 +31,7 @@ func _process(_delta):
 	if at_final_pos == true:
 		position = final_pos + offset
 	
-	if mouse_entered == true and Input.is_action_just_pressed("left_click"):
+	if mouse_entered == true and Input.is_action_just_pressed("click"):
 		Global.has_toothbrush = true
 		
 		collision.set_deferred("disabled", true)
@@ -48,3 +51,12 @@ func _on_Toothbrush_mouse_entered():
 
 func _on_Toothbrush_mouse_exited():
 	mouse_entered = false
+
+# aura stuff is no longer being used (looked bad)
+
+#func _on_AuraTimer_timeout():
+#	var aura_instance = aura_object.instance()
+#
+#	aura_instance.global_position = global_position
+#
+#	aura_parent.add_child(aura_instance)

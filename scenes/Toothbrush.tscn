@@ -7,10 +7,10 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 40 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "Clicked"
-length = 0.3
-step = 0.025
+length = 0.2
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
@@ -18,14 +18,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( -1.5, 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Idle"
+[sub_resource type="Animation" id=3]
 length = 4.0
 loop = true
 tracks/0/type = "value"
@@ -53,8 +52,8 @@ shape = SubResource( 1 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Clicked = SubResource( 3 )
-anims/Idle = SubResource( 2 )
+anims/Clicked = SubResource( 2 )
+anims/Idle = SubResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -63,6 +62,9 @@ texture = ExtResource( 2 )
 stream = ExtResource( 3 )
 volume_db = -8.0
 
+[node name="AuraTimer" type="Timer" parent="."]
+
 [connection signal="mouse_entered" from="." to="." method="_on_Toothbrush_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_Toothbrush_mouse_exited"]
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
+[connection signal="timeout" from="AuraTimer" to="." method="_on_AuraTimer_timeout"]

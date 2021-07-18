@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/Mouth.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://assets/sound/sfx/button click.wav" type="AudioStream" id=7]
 [ext_resource path="res://assets/sound/sfx/toothbrush.ogg" type="AudioStream" id=8]
 [ext_resource path="res://assets/font/new_dynamicfont.tres" type="DynamicFont" id=9]
+[ext_resource path="res://assets/sound/sfx/activity warning.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/sound/music/Manic Mental Dental Defender.mp3" type="AudioStream" id=11]
 
 [node name="SceneManager" type="Node"]
 script = ExtResource( 3 )
@@ -67,14 +69,18 @@ position = Vector2( 0, -0.0556793 )
 stream = ExtResource( 7 )
 volume_db = 4.0
 
+[node name="Toothbrush" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 8 )
+
+[node name="ActivityWarning" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 10 )
+volume_db = -8.0
+
 [node name="Music" type="Node" parent="."]
 
 [node name="Music" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 11 )
 autoplay = true
-bus = "Music"
-
-[node name="Toothbrush" type="AudioStreamPlayer" parent="Music"]
-stream = ExtResource( 8 )
 bus = "Music"
 
 [connection signal="pressed" from="CanvasLayer/UI_HUD/ViewSwitchButton" to="." method="_on_ViewSwitchButton_pressed"]
